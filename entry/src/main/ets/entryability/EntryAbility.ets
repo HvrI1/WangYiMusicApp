@@ -1,44 +1,33 @@
-import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
-
-const DOMAIN = 0x0000;
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { App, window } from '@kit.ArkUI';
+import { ImmersionEnum } from '../constans';
 
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
-    this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
-  }
 
-  onDestroy(): void {
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
-    // Main window is created, set main page for this ability
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
-
-    windowStage.loadContent('pages/Index', (err) => {
-      if (err.code) {
-        hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
-        return;
-      }
-      hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
-    });
+    setImmersion(windowStage)
+    windowStage.loadContent("pages/Advert/Advert")
   }
 
-  onWindowStageDestroy(): void {
-    // Main window is destroyed, release UI related resources
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
-  }
 
-  onForeground(): void {
-    // Ability has brought to foreground
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
-  }
-
-  onBackground(): void {
-    // Ability has back to background
-    hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
-  }
+}
+//设置沉浸式的方法
+function setImmersion(windowStage: window.WindowStage){
+  //获取主窗口对象
+  const mainWindow =  windowStage.getMainWindowSync()
+  // 添加全屏设置
+  mainWindow.setWindowLayoutFullScreen(true) // 设置沉浸式开启
+  // mainWindow.setWindowSystemBarEnable([]) // 隐藏所有系统栏
+  //获得窗口避让区域的头部区域，并将结果转为vp,注意此处的window是导入的包
+  const topHeight = px2vp(mainWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_SYSTEM).topRect.height)
+  //获得底部区域，和上面同理,注意这里的AvoidAreaType枚举类型选择和上面不一样
+  const bottomHeight = px2vp(mainWindow.getWindowAvoidArea(window.AvoidAreaType.TYPE_NAVIGATION_INDICATOR).bottomRect.height)
+  console.log("头部高度",topHeight);
+  console.log("底部高度",bottomHeight);
+  //获得高度后，我们需要存入appStorage中
+  AppStorage.setOrCreate(ImmersionEnum.APP_TOP_HEIGHT,topHeight)
+  AppStorage.setOrCreate(ImmersionEnum.APP_BOTTOM_HEIGHT,bottomHeight)
 }
