@@ -55,7 +55,8 @@ function setImmersion(windowStage: window.WindowStage){
 ```
 3. 在onWindowStageCreate中执行，注意：由于设置了全屏沉浸式，后续的所有页面的高度"100%"都是占满屏幕的。
 4. 对应页面如果不要沉浸式，需要手动在最外面的组件的margin的top设置高度为topHeight。背景颜色遮不遮就看使用的是marin还是padding
-### 3.1.3搭建广告页
+## 3.2、搭建广告页
+### 3.2.1广告页UI
 思路：我们首先要想一下，这个页面大概是什么样子。首先，广告页不一定要展示广告，也可能展示用户自定义的开平背景。
 而这个页面最简单的的组件元素无非就是背景，倒计时跳转按钮两种。而背景可以是视频也可以是图片，无论是哪种都是一个
 资源，而按钮是一个组件悬浮于背景之上。所以我们需要可以先创建一个广告对应的实体模型。组件就在当前面页面实现。
@@ -158,3 +159,89 @@ struct Advert {
 }
 ```
 
+### 3.2.2广告后端接口请求
+1. 后端接口实现(这里省略)
+2. 导入工具类(首选项，axios)
+3. 在modile.json5中添加网络权限
+```json5
+    "requestPermissions": [
+      {"name": "ohos.permission.INTERNET"}
+    ]
+```
+4. 查询全部广告接口http://【本机ip/公网ip】:8080/advert/findAllAdvert
+5. 根据id查询广告接口http://【本机ip/公网ip】:8080/advert/findAdvertById?id={需要传入id}
+6. 根据后端响应的数据类型定义实体（分离接口和实现类）
+/pojo/Advert.ets
+```extendtypescript
+export interface AdvertInfo{
+  id: number | null,
+  advertName: string,//广告的名字
+  advertUrl: string,//广告的资源地址
+  linkUrl: string| null,
+  type: number| null,
+  position: string| null,
+  duration: number,//广告的时长
+  startTime: Date| null,
+  endTime: Date| null,
+  sortOrder: number| null,
+  isOn: number| null,//是否需要开启广告
+  clickCount: number| null,
+  createTime: Date| null,
+  updateTime: Date| null
+}
+```
+/pojo/impl/AdvertImpl.ets
+```extendtypescript
+export class AdvertInfoModel implements AdvertInfo{
+  id: number | null = null;
+  advertName: string;
+  advertUrl: string;
+  linkUrl: string | null= null;
+  type: number | null= null;
+  position: string | null= null;
+  duration: number;
+  startTime: Date | null= null;
+  endTime: Date | null= null;
+  sortOrder: number | null= null;
+  isOn: number | null= null;
+  clickCount: number | null= null;
+  createTime: Date | null= null;
+  updateTime: Date | null= null;
+
+  constructor(advertInfo:AdvertInfo) {
+    this.id = advertInfo.id;
+    this.advertName = advertInfo.advertName;
+    this.advertUrl = advertInfo.advertUrl;
+    this.linkUrl = advertInfo.linkUrl;
+    this.type = advertInfo.type;
+    this.position = advertInfo.position;
+    this.duration = advertInfo.duration;
+    this.startTime = advertInfo.startTime;
+    this.endTime = advertInfo.endTime;
+    this.sortOrder = advertInfo.sortOrder;
+    this.isOn = advertInfo.isOn;
+    this.clickCount = advertInfo.clickCount;
+    this.createTime = advertInfo.createTime;
+    this.updateTime = advertInfo.updateTime;
+  }
+}
+```
+7. 编写API调用后端接口
+/api/advert.ets
+```extendtypescript
+export const queryAllAdvert = () =>{
+   return RequestAxios.get<AdvertInfo>("/advert/findAllAdvert")
+}
+
+export const queryAdvertById = (id:number) =>{
+  return RequestAxios.get<AdvertInfo>(`http://localhost:8080/advert/findAdvertById?id=${id}`)
+}
+```
+8. BUG处理：
+注意axios请求时不能使用localhost
+```extendtypescript
+export enum RequestInfo{
+  BASE_URL = "http://192.168.0.100:8080" //正确
+  //BASE_URL = "http://localhost:8080" //错误
+}
+```
