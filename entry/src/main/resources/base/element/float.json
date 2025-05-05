@@ -3,6 +3,42 @@
     {
       "name": "page_text_font_size",
       "value": "50fp"
+    },
+    {
+      "name": "tab_bar_font_size_little",
+      "value": "12vp"
+    },
+    {
+      "name": "glyph_font_size_normal",
+      "value": "20vp"
+    },
+    {
+      "name": "tab_bar_font_size_big",
+      "value": "16vp"
+    },
+    {
+      "name": "glyph_font_size_little",
+      "value": "15vp"
+    },
+    {
+      "name": "placeholder_font_size",
+      "value": "14vp"
+    },
+    {
+      "name": "card_description_font_size",
+      "value": "12vp"
+    },
+    {
+      "name": "card_title_font_size",
+      "value": "16vp"
+    },
+    {
+      "name": "nav_title_font_size",
+      "value": "16vp"
+    },
+    {
+      "name": "song_card_artist_font_size",
+      "value": "12vp"
     }
   ]
 }

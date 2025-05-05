@@ -245,3 +245,71 @@ export enum RequestInfo{
   //BASE_URL = "http://localhost:8080" //错误
 }
 ```
+# 四、首页的设计和实现
+## 4.1、首页的分析
+1. 首先首页可以看作时一个tabs选项卡页面，里面有四个选项，对应四个页面，
+2. 而播放的组件是固定存在，所以播放组件是跟页面在一起的。
+3. 首页“推荐”选项卡的页面里面又有一个选项卡tabs组件对应四个页面
+4. 首页推荐的搜素是固定在推荐页面中的。
+## 4.2、首页实现
+1. 首页只有一个组件那就是tabs，需要通过foreach遍历数组，把显示的四个页面遍历出来
+```extendtypescript
+//属性：底部导航数据
+  tabsData: TabClass[] = [
+    {
+      title: '推荐',
+      name: 'recommend',
+      icon: $r("sys.symbol.service")
+    },
+    {
+      title: '漫游',
+      name: 'roam',
+      icon: $r("sys.symbol.cloud")
+    },
+    {
+      title: '笔记',
+      name: 'note',
+      icon: $r("sys.symbol.doc_plaintext")
+    },
+    {
+      title: '我的',
+      name: 'mine',
+      icon: $r("sys.symbol.person")
+    },
+  ]
+```
+```extendtypescript
+Tabs({index:$$this.currentIndex}){
+      ForEach(this.tabsData,(item:TabClass,index:number)=>{
+        TabContent(){
+          if (item.name==="recommend"){
+            //TODO:推荐的组件
+            Text("推荐的组件")
+          }else if(item.name==="roam") {
+            //TODO:漫游的组件
+            Text("漫游的组件")
+          }else if(item.name==="note"){
+            //TODO:笔记的组件
+            Text("笔记的组件")
+          }else {
+            //TODO:我的的组件
+            Text("我的的组件")
+          }
+        }
+        .tabBar(this.tabsBarComp(item,index))//自定义选项卡组件
+      })
+    }
+    // .margin({top:this.appTopHeight})//如果背景不遮盖就选margin，如果背景要遮盖，就选padding
+    .height('100%')
+    .width('100%')
+    .backgroundColor("#9966bb")
+    .barPosition(BarPosition.End)
+    .barBackgroundColor("#ffffff")
+```
+2. 注意这里还没有处理字体大小，颜色，文字内容的分层处理
+3. 注意点有两个：
+a.TabContent遍历出来有四个
+b.需要有一个状态变量currentIndex双向绑定index，去改变选中的颜色
+
+
+

@@ -7,6 +7,72 @@
     {
       "name": "button_background_gray",
       "value": "#FFE0E0E0"
+    },
+    {
+      "name": "tab_bar_able",
+      "value": "#000000"
+    },
+    {
+      "name": "tab_bar_disable",
+      "value": "#ff969696"
+    },
+    {
+      "name": "tab_background_white",
+      "value": "#ffffff"
+    },
+    {
+      "name": "tab_bar_background_white",
+      "value": "#ffffff"
+    },
+    {
+      "name": "tab_bar_border_background_able",
+      "value": "#000000"
+    },
+    {
+      "name": "tab_bar_border_background_disable",
+      "value": "#ffffff"
+    },
+    {
+      "name": "text_color_gray",
+      "value": "#ff969696"
+    },
+    {
+      "name": "background_color_gray",
+      "value": "#FFEEEEEE"
+    },
+    {
+      "name": "background_color_lucency",
+      "value": "#00000000"
+    },
+    {
+      "name": "card_description_background_color",
+      "value": "#F70E0E0E"
+    },
+    {
+      "name": "text_color_white",
+      "value": "#ffffff"
+    },
+    {
+      "name": "background_color_white",
+      "value": "#ffffff"
+    } ,
+    {
+      "name": "text_color_black",
+      "value": "#000000"
+    },
+    {
+      "name": "song_tag_background_color",
+      "value": "#f5e4e7"
+    },
+    {
+      "name": "song_tag_font_color",
+      "value": "#fb5d5d"
+    },
+    {
+      "name": "song_artist_font_color",
+      "value": "#868793"
     }
+
+
   ]
 }

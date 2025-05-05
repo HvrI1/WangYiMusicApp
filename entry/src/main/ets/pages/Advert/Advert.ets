@@ -70,9 +70,10 @@ struct Advert {
     .height('100%')
     .width('100%')
     //这里我们希望背景全屏展示，所以使用padding,
-    .padding({top:this.topHeight})
+    // .padding({top:this.topHeight})
     //这里背景图不能是组件，因为如果是组件会被padding限制内容而不是沉浸式了，所以要在组件上设置背景
     .backgroundImage(this.advert.advertUrl)
     .backgroundImageSize({width:"100%",height:"100%"})
+    .expandSafeArea([SafeAreaType.SYSTEM],[SafeAreaEdge.TOP,SafeAreaEdge.BOTTOM])
   }
 }

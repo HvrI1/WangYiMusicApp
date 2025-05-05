@@ -1,7 +1,5 @@
 {
   "apiType": "stageMode",
-  "buildOption": {
-  },
   "buildOptionSet": [
     {
       "name": "release",
@@ -13,6 +11,11 @@
               "./obfuscation-rules.txt"
             ]
           }
+        }
+      },"nativeLib": {
+        "debugSymbol": {
+          "strip": true,
+          "exclude": []
         }
       }
     },
