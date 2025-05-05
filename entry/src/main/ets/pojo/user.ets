@@ -4,7 +4,7 @@ export interface User {
    * 用户名（非空，最大长度50）
    * @rule 非空校验逻辑需在业务层实现
    */
-  username: string;
+  username: string
   /**
    * 密码（非空）
    * @rule 非空校验逻辑需在业务层实现

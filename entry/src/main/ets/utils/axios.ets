@@ -30,7 +30,7 @@ instance.interceptors.response.use((response:AxiosResponse)=>{
   //data:{code,meg,data}
   //判断结果：
   if(response.data && response.data.code ===0){
-    return response.data.data
+    return response.data
   }
   //TODO:如果response.data.code ===401等自行处理
   if(response.data && response.data.code ===1){

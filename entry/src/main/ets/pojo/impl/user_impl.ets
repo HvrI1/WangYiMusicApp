@@ -2,21 +2,21 @@ import { User } from "../user";
 
 export class  UserModel implements User{
   id: number;
-  username: string;
-  password: string;
-  nick: string;
-  birthdate?: string | undefined;
-  isVip: number;
-  tags: string[];
-  signature?: string | undefined;
-  status: number;
-  email?: string | undefined;
-  phone?: string | undefined;
-  regionCode?: string | undefined;
-  lastLoginIp?: string | undefined;
-  lastLoginTime?: string | undefined;
-  createTime?: string | undefined;
-  updateTime?: string | undefined;
+  username: string
+  password: string
+  nick: string
+  birthdate?: string
+  isVip: number
+  tags: string[]
+  signature?: string
+  status: number
+  email?: string
+  phone?: string
+  regionCode?: string
+  lastLoginIp?: string
+  lastLoginTime?: string
+  createTime?: string
+  updateTime?: string
 
   constructor(model:User) {
     this.id = model.id;

@@ -2,6 +2,7 @@ import { ImmersionEnum } from '../../constans'
 import { AdvertInfo, AdvertInfoModel} from '../../pojo'
 import { router } from '@kit.ArkUI'
 import { queryAdvertById, queryAllAdvert } from '../../api'
+import { Result } from '../../commons/type_common'
 
 
 @Entry
@@ -20,7 +21,8 @@ struct Advert {
 
   // 获取广告
   async getAdvertById(){
-    this.advert =  await queryAdvertById(2)
+    let res:Result =  await queryAdvertById(2)
+    this.advert = res.data as AdvertInfo
   }
 
 

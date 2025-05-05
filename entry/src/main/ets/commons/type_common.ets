@@ -21,3 +21,10 @@ export class SongCardClass{
   songTags:string[] = []
   isVip:boolean = false
 }
+
+//统一响应类型
+export  class  Result{
+  code?:number
+  message?:string
+  data?:Object|null
+}
