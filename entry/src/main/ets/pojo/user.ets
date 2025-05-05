@@ -1,6 +1,4 @@
 export interface User {
-  //没有密码和加密token
-
   id: number;
   /**
    * 用户名（非空，最大长度50）
@@ -11,6 +9,7 @@ export interface User {
    * 密码（非空）
    * @rule 非空校验逻辑需在业务层实现
    */
+  password:string
   nick: string;
   /** 出生日期 */
   birthdate?: string; // 日期建议使用 ISO 格式字符串，如 "2023-10-05"
@@ -36,4 +35,9 @@ export interface User {
   createTime?: string;
   /** 更新时间（格式：yyyy-MM-dd HH:mm:ss） */
   updateTime?: string;
+}
+
+export interface  UserDto{
+  username:string
+  password:string
 }

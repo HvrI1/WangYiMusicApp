@@ -35,11 +35,11 @@ export class UserSettingClass{
     await store.put(UserInfo.USER_TOKEN_KEY,token)
     await store.flush()
   }
-  //
-  // async getUserToken():Promise<string>{
-  //   const store = await this.getStore()
-  //   const result =  await store.get(TOKEN_KEY,"")
-  //   return result as string
-  // }
+
+  async getUserToken():Promise<string>{
+    const store = await this.getStore()
+    const result =  await store.get(UserInfo.USER_TOKEN_KEY,"")
+    return result as string
+  }
 
 }

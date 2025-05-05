@@ -68,6 +68,7 @@ export class RequestAxios{
   }
 
   static post<T>(url:string, data?:object):Promise<T> {
+
     return request<T,object>({url,data,method:"POST"})
   }
 

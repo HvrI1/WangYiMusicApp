@@ -71,8 +71,12 @@
     {
       "name": "song_artist_font_color",
       "value": "#868793"
+    },
+
+
+    {
+      "name": "primary",
+      "value": "#ff3a3a"
     }
-
-
   ]
 }

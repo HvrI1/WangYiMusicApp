@@ -3,6 +3,7 @@ import { User } from "../user";
 export class  UserModel implements User{
   id: number;
   username: string;
+  password: string;
   nick: string;
   birthdate?: string | undefined;
   isVip: number;
@@ -20,6 +21,7 @@ export class  UserModel implements User{
   constructor(model:User) {
     this.id = model.id;
     this.username = model.username;
+    this.password=model.password
     this.nick = model.nick;
     this.birthdate = model.birthdate;
     this.isVip = model.isVip;
@@ -34,7 +36,6 @@ export class  UserModel implements User{
     this.createTime = model.createTime;
     this.updateTime = model.updateTime;
   }
-
 
 
 }

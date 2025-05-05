@@ -9,7 +9,7 @@ export default class EntryAbility extends UIAbility {
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
     setImmersion(windowStage)
-    windowStage.loadContent("pages/Advert/Advert")
+    windowStage.loadContent("pages/Login/Login")
   }
 
 
