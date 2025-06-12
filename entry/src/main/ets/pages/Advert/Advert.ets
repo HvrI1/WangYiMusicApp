@@ -1,5 +1,5 @@
-import { ImmersionEnum } from '../../constans'
-import { AdvertInfo, AdvertInfoModel} from '../../pojo'
+import { ImmersionEnum, USER_INFO } from '../../constans'
+import { AdvertInfo, AdvertInfoModel, User} from '../../pojo'
 import { router } from '@kit.ArkUI'
 import { queryAdvertById, queryAllAdvert } from '../../api'
 import { Result } from '../../commons/type_common'
@@ -8,6 +8,8 @@ import { Result } from '../../commons/type_common'
 @Entry
 @Component
 struct Advert {
+
+  @State userInfo:User = {} as User
 
   //广告数据对象
   @State advert:AdvertInfo = new AdvertInfoModel({} as AdvertInfo)
@@ -21,8 +23,11 @@ struct Advert {
 
   // 获取广告
   async getAdvertById(){
-    let res:Result =  await queryAdvertById(2)
+    let res:Result =  await queryAdvertById(3)
     this.advert = res.data as AdvertInfo
+
+
+
   }
 
 
@@ -30,12 +35,26 @@ struct Advert {
   interval(){
     this.timeId = setInterval(()=>{
       if(this.advert.duration>0) {this.advert.duration--}
-      else {router.replaceUrl({url:"pages/Index/Index"})}
+      else {
+        if(this.userInfo){
+          router.replaceUrl({url:"pages/Index/Index"})
+        }else {
+          router.replaceUrl({url:"pages/Login/Login"})
+        }
+
+
+      }
     },1000)
+  }
+  getUserInfo(){
+    this.userInfo =  AppStorage.get(USER_INFO) as User
+    console.log("======="+JSON.stringify(this.userInfo))
   }
 
   //页面构建时
   aboutToAppear(): void {
+    //拿到用户信息
+    this.getUserInfo()
     //异步调用接口获取广告资源
     this.getAdvertById()
   }
@@ -57,7 +76,11 @@ struct Advert {
         Span(" ")
         Span("跳过")
           .onClick(()=>{
-            router.replaceUrl({url:"pages/Index/Index"})
+            if(this.userInfo){
+              router.replaceUrl({url:"pages/Index/Index"})
+            }else {
+              router.replaceUrl({url:"pages/Login/Login"})
+            }
           })
       }
       .fontSize(12)

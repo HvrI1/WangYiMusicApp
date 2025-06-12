@@ -12,6 +12,8 @@ export class  UserModel implements User{
   status: number
   email?: string
   phone?: string
+  accessToken?:string
+  refreshToken?:string
   regionCode?: string
   lastLoginIp?: string
   lastLoginTime?: string
@@ -35,6 +37,8 @@ export class  UserModel implements User{
     this.lastLoginTime = model.lastLoginTime;
     this.createTime = model.createTime;
     this.updateTime = model.updateTime;
+    this.accessToken = model.accessToken;
+    this.refreshToken = model.refreshToken;
   }
 
 

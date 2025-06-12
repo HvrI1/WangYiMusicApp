@@ -1,11 +1,11 @@
 import { BacKNav } from '../../components';
 import { User, UserModel } from '../../pojo';
 import { router } from '@kit.ArkUI';
-import { loginApi } from '../../api';
+import { loginApi, selectUserInfoByUserNameApi } from '../../api';
 import { UserSettingClass } from '../../utils';
-import { UserInfo } from '../../constans';
 import { RegisterDialog } from './RegisterDialog/RegisterDialog';
-import { Result } from '../../commons/type_common';
+import { Result } from '../../commons';
+import { USER_INFO } from '../../constans';
 
 @Entry
 @Component
@@ -34,11 +34,25 @@ struct Login {
     //锁定登录
     this.loading = true
     //登录操作
-    let res:Result =  await loginApi({username:this.user.username,password:this.user.password})
-    //存入AppStorage
-    AppStorage.setOrCreate(UserInfo.USER_TOKEN_KEY,res.data)
-    //存入首选项
-    new UserSettingClass(getContext()).setUserToken(res.data as string)
+    let res_loginApi:Result =  await loginApi({username:this.user.username,password:this.user.password})
+    console.log("1")
+    let user:User = AppStorage.get(USER_INFO) as User
+    if(user){
+      user.accessToken = res_loginApi.data as string
+      AppStorage.setOrCreate(USER_INFO,user)
+    }else {
+      let user:User = {} as User
+      user.accessToken = res_loginApi.data as string
+      AppStorage.setOrCreate(USER_INFO,user)
+    }
+    //异步执行查询用户信息，后端过滤敏感信息
+    selectUserInfoByUserNameApi(this.user.username).then((res:Result)=>{
+      //将用户信息存入首选项
+      new UserSettingClass(getContext()).setUserInfo(res.data as User)
+      //将token存入AppStorage
+      AppStorage.setOrCreate(USER_INFO,res.data as User)
+    })
+    console.log("5")
     // //解除锁定
     this.loading = false
     // //跳转首页

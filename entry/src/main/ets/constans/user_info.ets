@@ -1,4 +1,2 @@
 //用户token的key
-export enum UserInfo{
-  USER_TOKEN_KEY = "user_token_key"
-}
+export const USER_INFO = "user_info"

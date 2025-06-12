@@ -1,5 +1,6 @@
 import { preferences } from "@kit.ArkData"
-import { AppSettingEnum, UserInfo } from "../constans"
+import { AppSettingEnum, USER_INFO } from "../constans"
+import { User } from "../pojo/user"
 
 
 export class UserSettingClass{
@@ -29,17 +30,19 @@ export class UserSettingClass{
   //   return JSON.parse(result as string) as AdvertClass
   // }
   //
-  //用户的令牌存取
-  async setUserToken(token:string):Promise<void>{
+  //用户的令牌和账号存入
+  async setUserInfo(user:User):Promise<void>{
     const store = await this.getStore()
-    await store.put(UserInfo.USER_TOKEN_KEY,token)
+    await store.put(USER_INFO,user)
     await store.flush()
   }
 
-  async getUserToken():Promise<string>{
+  async getUserInfo():Promise<User>{
     const store = await this.getStore()
-    const result =  await store.get(UserInfo.USER_TOKEN_KEY,"")
-    return result as string
+    const result =  await store.get(USER_INFO,"")
+    return result as User
   }
+
+
 
 }

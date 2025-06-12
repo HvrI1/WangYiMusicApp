@@ -23,6 +23,10 @@ export interface User {
   status: number;
   /** 邮箱（格式校验） */
   email?: string;
+  //令牌
+  accessToken?:string
+  //刷新令牌
+  refreshToken?:string
   /** 电话号码（最大长度20） */
   phone?: string;
   /** 地区编码（最大长度10） */
@@ -40,4 +44,9 @@ export interface User {
 export interface  UserDto{
   username:string
   password:string
+}
+
+export interface  CheckTokenDto{
+  token:string
+  username:string
 }
